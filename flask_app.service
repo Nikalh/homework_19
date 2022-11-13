@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/home/nalkhov/app
-ExecStart=/home/nalkhov/app/venv/bin/python -m flask run -h 0.0.0.0 -p 50000
+ExecStart=/home/nalkhov/app/venv/bin/python -m gunicorn app:app -b 0.0.0.0:50000 -w 4
 Environment="APP_SETTINGS=/etc/flask-app/config.py"
 Restart=always
 
