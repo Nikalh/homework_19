@@ -3,9 +3,9 @@ Description=Flask-app
 After=network.target
 
 [Service]
-WorkingDirectory=/opt/app/flask-app/
-ExecStart=/opt/app/env/bin/python -m flask run -h 0.0.0.0 -p 80
-Environment="APP_SETTINGS=/etc/flask-app/config.py"
+WorkingDirectory=/home/nalkhov/app
+ExecStart=/home/nalkhov/app/venv/bin/activate -m flask run -h 0.0.0.0 -p 50000
+Environment=FLASK_APP=app.py
 Restart=always
 
 [Install]
