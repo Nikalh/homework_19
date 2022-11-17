@@ -12,7 +12,7 @@ ADD  dao dao
 COPY constants.py .
 COPY implemented.py .
 COPY movies.db .
-COPY migrations migrations
+ADD migrations migrations
 COPY docker_config.py default_config.py
 
 CMD flask run -h 0.0.0.0 -p 80
