@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restx import Api
+from flask_migrate import Migrate
 
 from config import Config
 from setup_db import db
@@ -14,6 +15,7 @@ def create_app(config_object):
     app = Flask(__name__)
     app.config.from_object(config_object)
     app.app_context().push()
+
     register_extensions(app)
     return app
 
@@ -30,6 +32,7 @@ def register_extensions(app):
 
     create_data(app, db)
 
+
 # функция создания таблиц с данными
 def create_data(app, db):
     with app.app_context():
@@ -37,7 +40,8 @@ def create_data(app, db):
 
 
 app = create_app(Config())
+migrate = Migrate(app, db)
 if __name__ == '__main__':
 
-    app.debug = True
-    app.run(host="localhost", port=10001, debug=True)
+    #app.debug = True
+    app.run()
