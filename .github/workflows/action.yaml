@@ -25,8 +25,8 @@ jobs:
       - name: render configs
         run: |
           mkdir deploy
-          envsubst > homework 19/docker-compose.yaml
-          envsubst > homework 19/docker_config.py
+          cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+          cat docker_ci_config.py | envsubst > deploy/docker_config.py
       - name: clone files to server
         uses: appleboy/scp-action@master
         with:
