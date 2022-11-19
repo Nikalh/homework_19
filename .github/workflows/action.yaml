@@ -33,7 +33,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "homework 19/docker-compose.yaml,homework 19/docker_config.py"
+          source: "deploy/docker-compose.yaml,deploy/docker_config.py"
           target: "flask-app"
           strip_components: 1
       - name: run docker-compose
