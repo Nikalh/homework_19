@@ -25,15 +25,15 @@ jobs:
       - name: render configs
         run: |
           mkdir deploy
-          cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
-          cat docker_ci_config.py | envsubst > deploy/docker_config.py
+          cat docker-compose-ci.yaml | envsubst > homework 19/docker-compose.yaml
+          cat docker_ci_config.py | envsubst > homework 19/docker_config.py
       - name: clone files to server
-        uses: appleboy/ssh-action@master
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          source: "deploy/docker-compose.yaml,deploy/docker_config.py"
+          source: "homework 19/docker-compose.yaml,homework 19/docker_config.py"
           target: "flask-app"
           strip_components: 1
       - name: run docker-compose
