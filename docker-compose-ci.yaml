@@ -23,10 +23,10 @@ services:
   pg:
     image: postgres:latest
     environment:
-      POSTGRES_USER: $DB_USER
-      POSTGRES_PASSWORD: $DB_PASSWORD
-      POSTGRES_ROLE: $DB_ROLE
-      POSTGRES_DB: $DB_NAME
+     - POSTGRES_USER=$DB_USER
+     - POSTGRES_PASSWORD=$DB_PASSWORD
+     - POSTGRES_ROLE=$DB_ROLE
+     - POSTGRES_DB=$DB_NAME
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s

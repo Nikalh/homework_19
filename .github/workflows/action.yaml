@@ -25,6 +25,9 @@ jobs:
       - name: render configs
         run: |
           mkdir deploy
+          export DB_USER=${{secrets.DB_USER}}
+          export DB_PASSWORD=${{sectrets.DB_PASSWORD}}
+          export DB_NAME=${{secrets.DB_NAME}}
           cat docker-compose.yaml | envsubst > deploy/docker-compose.yaml
           cat docker_config.py | envsubst > deploy/docker_config.py
       - name: clone files to server
