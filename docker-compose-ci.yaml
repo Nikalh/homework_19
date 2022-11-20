@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   api:
-    image: nalkhov/nalkhov_app:version-1
+    image: nalkhov/nalkhov_app:${{GITHUB_REF_NAME}}-${{GITHUB_RUN_ID}}
     ports:
       - 80:80
     depends_on:
@@ -13,7 +13,7 @@ services:
       - ./docker_config.py:/code/default_config.py
 
   migrations:
-    image: nalkhov/nalkhov_app:version-1
+    image: nalkhov/nalkhov_app:${{GITHUB_REF_NAME}}-${{GITHUB_RUN_ID}}
     depends_on:
       pg:
         condition: service_healthy
@@ -21,11 +21,12 @@ services:
       - ./docker_config.py:/code/default_config.py
     command: flask db upgrade
   pg:
+
     image: postgres:latest
     environment:
-      POSTGRES_USER: flask_app
-      POSTGRES_PASSWORD: ghjtrn
-      POSTGRES_DB: flask_app
+      - POSTGRES_USER=${{DB_USER}}
+      - POSTGRES_PASSWORD=${{DB_PASSWORD}}
+
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
