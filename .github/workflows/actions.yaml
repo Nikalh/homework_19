@@ -15,15 +15,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push
-    - name: Test env vars for python
-      run: python -c 'import os;print(os.environ)'
-      env:
-        DB_USER: ${{ secrets.DB_USER }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        DB_NAME: ${{ secrets.DB_NAME }}
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+    env:
+      export DB_USER=${{ secrets.DB_USER }}
+      export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+      export DB_NAME=${{ secrets.DB_NAME }}
     steps:
       - name: clone code
         uses: actions/checkout@v2
@@ -35,18 +30,18 @@ jobs:
       - name: clone files to server
         uses: appleboy/scp-action@master
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          host: nalkov.ga
+          username: skypro
+          password: bcgsnfybt
           source: "deploy/docker-compose.yaml,deploy/docker_config.py"
-          target: "deploy"
+          target: "flask-app"
           strip_components: 1
       - name: run docker-compose
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          host: nalkov.ga
+          username: skypro
+          password: bcgsnfybt
           script: |
             cd flask-app
             echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
