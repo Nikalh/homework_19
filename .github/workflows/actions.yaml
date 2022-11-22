@@ -19,9 +19,8 @@ jobs:
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_NAME: ${{ secrets.DB_NAME }}
-      host: ${{ secrets.HOST }}
-      username: ${{ secrets.USERNAME }}
-      password: ${{ secrets.PASSWORD }}
+      DB_ROLE: ${{ secrets.DB_ROLE }}
+
 
     steps:
       - name: clone code
@@ -29,16 +28,13 @@ jobs:
       - name: render configs
         run: |
           mkdir deploy
-          export host=${{ secrets.HOST }}
-          export username=${{ secrets.USERNAME }}
-          export password=${{ secrets.PASSWORD }}
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
           cat docker_ci_config.py | envsubst > deploy/docker_config.py
       - name: clone files to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
+          sername: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           source: "deploy/docker-compose.yaml,deploy/docker_config.py"
           target: "deploy"

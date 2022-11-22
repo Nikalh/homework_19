@@ -29,7 +29,7 @@ services:
     environment:
       POSTGRES_USER: flask_app
       POSTGRES_PASSWORD: flask_app_password
-
+      POSTGRES_ROLE: flask_app
       POSTGRES_DB: flask_app
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
