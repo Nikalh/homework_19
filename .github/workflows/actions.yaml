@@ -30,7 +30,7 @@ jobs:
       - name: clone files to server
         uses: appleboy/scp-action@master
         with:
-          host: nalkov.ga
+          host: nalkhov.ga
           username: skypro
           password: bcgsnfybt
           source: "deploy/docker-compose.yaml,deploy/docker_config.py"
@@ -39,7 +39,7 @@ jobs:
       - name: run docker-compose
         uses: appleboy/ssh-action@master
         with:
-          host: nalkov.ga
+          host: nalkhov.ga
           username: skypro
           password: bcgsnfybt
           script: |
