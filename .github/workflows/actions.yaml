@@ -15,16 +15,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push
-    - name: Test env vars for python
-      run: python -c 'import os;print(os.environ)'
-      env:
-        DB_USER: ${{ secrets.DB_USER }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        DB_NAME: ${{ secrets.DB_NAME }}
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+     
     steps:
+      - name: Test env vars for python
+        run: python -c 'import os;print(os.environ)'
+        env:
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
       - name: clone code
         uses: actions/checkout@v2
       - name: render configs
