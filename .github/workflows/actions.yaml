@@ -22,12 +22,16 @@ jobs:
       host: ${{ secrets.HOST }}
       username: ${{ secrets.USERNAME }}
       password: ${{ secrets.PASSWORD }}
+
     steps:
       - name: clone code
         uses: actions/checkout@v2
       - name: render configs
         run: |
           mkdir deploy
+          export host=${{ secrets.HOST }}
+          export username=${{ secrets.USERNAME }}
+          export password=${{ secrets.PASSWORD }}
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
           cat docker_ci_config.py | envsubst > deploy/docker_config.py
       - name: clone files to server
