@@ -30,18 +30,18 @@ jobs:
       - name: clone files to server
         uses: appleboy/scp-action@master
         with:
-          host: nalkhov.ga
-          username: skypro
-          password: bcgsnfybt
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
           source: "deploy/docker-compose.yaml,deploy/docker_config.py"
-          target: "flask-app"
+          target: "deploy"
           strip_components: 1
       - name: run docker-compose
         uses: appleboy/ssh-action@master
         with:
-          host: nalkhov.ga
-          username: skypro
-          password: bcgsnfybt
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
           script: |
             cd flask-app
             echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
